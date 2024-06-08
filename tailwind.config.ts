@@ -14,7 +14,8 @@ const config: Config = {
         // Button colors
         "btn-gradient-primary":
           "linear-gradient(73.28deg, #495bfc 6.51%, #114188 88.45%)",
-        "btn-dark": "#0D2039",
+        "btn-dark-500": "#0d2039",
+        "btn-dark-400": "#1e3d66",
       },
     },
   },

@@ -1,4 +1,5 @@
-import { Button } from "../Button/Button";
+import { useConnectWallet } from "~/hooks/useConnectWallet";
+import { Button } from "~/components";
 
 function WalletLogo() {
   return (
@@ -9,12 +10,15 @@ function WalletLogo() {
 }
 
 export function ConnectWallet() {
+  const { isPending, mutate } = useConnectWallet();
+
   return (
     <Button
-      buttonClassName="bg-btn-dark text-md py-2 px-4 rounded-md text-blue-500 border-0 rounded-md p-4"
+      buttonClassName="bg-btn-dark-500 text-md py-2 px-4 rounded-xl text-blue-500 border-0 rounded-md p-4 hover:bg-btn-dark-400"
       leftIcon={<WalletLogo />}
+      onClick={() => mutate()}
     >
-      Connect Wallet
+      {isPending ? "Connecting..." : "Connect Wallet"}
     </Button>
   );
 }
