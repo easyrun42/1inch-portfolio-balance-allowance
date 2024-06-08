@@ -3,7 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 
-export const roboto = Roboto({
+const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });
