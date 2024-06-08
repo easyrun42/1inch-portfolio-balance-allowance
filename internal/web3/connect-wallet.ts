@@ -29,6 +29,14 @@ async function onWatchAddressListener({
   });
 }
 
+export async function disconnect() {
+  const { disconnect: disconnect_wagmi } = await import("@wagmi/core");
+
+  const config = await getConfig();
+
+  await disconnect_wagmi(config);
+}
+
 export async function reconnect({
   onAccountChange,
   onConnect,
@@ -77,7 +85,6 @@ export async function connectWallet({
 
   const connectedAddress: Address = await new Promise((resolve, reject) => {
     web3modal.subscribeEvents(async ({ data }) => {
-      console.log(data.event, getAccount(config).address);
       if (data.event === "MODAL_CLOSE" || data.event === "CONNECT_SUCCESS") {
         const connectedAddress = getAccount(config).address;
 

@@ -10,6 +10,8 @@ const config: Config = {
         "blue-500": "#2f8af5",
         "light-blue-500": "#6c86ad",
         "dark-blue-400": "#141924",
+        "dark-blue-300": "#6c86ad",
+        "dark-blue-200": "#202835",
 
         // Button colors
         "btn-gradient-primary":

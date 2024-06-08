@@ -1,6 +1,7 @@
 import { Address } from "viem";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { storage } from "~/internal/web3/wagmi";
 
 interface WalletState {
   address: Address | null;
@@ -16,5 +17,9 @@ export const useWalletStore = create<WalletState>()((set) => ({
   setAddress: (address) => set(() => ({ address })),
   setIsManuallyConnected: (isManuallyConnected) =>
     set(() => ({ isManuallyConnected })),
-  reset: () => set(() => ({ address: null, isManuallyConnected: false })),
+  reset: () => {
+    storage.removeItem("manual-address");
+    storage.removeItem("connected-address");
+    set(() => ({ address: null, isManuallyConnected: false }));
+  },
 }));

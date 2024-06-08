@@ -1,5 +1,7 @@
 import { Config, createStorage } from "@wagmi/core";
 import { projectId, metadata } from "./wallet-connect";
+import { createPublicClient, fallback, http } from "viem";
+import { mainnet } from "viem/chains";
 
 let configSingleton: Config;
 
@@ -29,4 +31,14 @@ const storage = createStorage({
   key: "1inch",
 });
 
-export { storage, getConfig };
+const mainnetPublicClient = createPublicClient({
+  chain: mainnet,
+  transport: fallback([
+    http(process.env.MAINNET_RPC_URL),
+    http("https://cloudflare-eth.com"),
+    http("https://eth.llamarpc.com"),
+    http("https://ethereum.publicnode.com"),
+  ]),
+});
+
+export { mainnetPublicClient, storage, getConfig };

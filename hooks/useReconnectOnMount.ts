@@ -1,20 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { createQueryKey } from "~/internal/react-query/create-query-key";
 import {
   ConnectWalletParameters,
-  connectWallet,
+  reconnect,
 } from "~/internal/web3/connect-wallet";
 import { storage } from "~/internal/web3/wagmi";
 import { useWalletStore } from "~/state/wallet";
 
-export function useConnectWallet() {
-  const { address, setAddress, setIsManuallyConnected } = useWalletStore();
+export function useReconnectOnMount() {
+  const { address, setAddress, setIsManuallyConnected, reset } =
+    useWalletStore();
 
   const onConnect: ConnectWalletParameters["onConnect"] = useCallback(
     ({ address }) => {
-      console.log({ damn: address });
-
       setAddress(address);
       setIsManuallyConnected(true);
       storage.setItem("connected-address", address);
@@ -26,15 +25,26 @@ export function useConnectWallet() {
     useCallback(
       ({ address: changedAddress }) => {
         setAddress(changedAddress || null);
-        if (!changedAddress) setIsManuallyConnected(false);
+        if (!changedAddress) reset();
       },
-      [setAddress, setIsManuallyConnected]
+      [reset, setAddress]
     );
 
-  return useMutation({
-    mutationKey: createQueryKey("ConnectWallet", {
+  const { mutate, ...rest } = useMutation({
+    mutationKey: createQueryKey("ReconnectWallet", {
       address,
     }),
-    mutationFn: () => connectWallet({ onAccountChange, onConnect }),
+    mutationFn: async () => {
+      const hasConnectedBefore = await storage.getItem("connected-address");
+      if (!hasConnectedBefore) return;
+      const connectedAccount = await reconnect({ onAccountChange, onConnect });
+      if (!connectedAccount) storage.setItem("connected-address", null);
+    },
   });
+
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
+
+  return rest;
 }
