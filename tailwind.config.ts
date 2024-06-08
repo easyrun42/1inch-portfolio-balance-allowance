@@ -1,20 +1,20 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./components/**/*.tsx", "./app/**/*.tsx"],
   theme: {
     extend: {
       colors: {
         // Main color properties
         primary: "#06070a",
-        blue500: "#2f8af5",
+        "blue-500": "#2f8af5",
+        "light-blue-500": "#6c86ad",
+        "dark-blue-400": "#141924",
 
-        // Buttons
-        btnGradientPrimary:
+        // Button colors
+        "btn-gradient-primary":
           "linear-gradient(73.28deg, #495bfc 6.51%, #114188 88.45%)",
+        "btn-dark": "#0D2039",
       },
     },
   },

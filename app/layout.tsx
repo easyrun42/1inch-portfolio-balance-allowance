@@ -33,7 +33,7 @@ export default function RootLayout({
         </style>
       </head>
       <body className="bg-primary">
-        <main className={clsx("min-h-screen", roboto.className)}>
+        <main className={clsx("min-h-screen flex flex-col", roboto.className)}>
           {children}
         </main>
       </body>
