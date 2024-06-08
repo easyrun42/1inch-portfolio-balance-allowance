@@ -8,6 +8,8 @@ Check how much balance you have from most popular ERC20 tokens.
 
 You can also check the allowance amount for each token that 1inch router contract has access to.
 
+[Preview link](https://1inch-portfolio-balance-allowance.vercel.app/)
+
 ## Tools used
 
 - [NextJS](https://nextjs.org/)
