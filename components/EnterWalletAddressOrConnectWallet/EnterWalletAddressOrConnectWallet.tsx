@@ -38,7 +38,7 @@ export function EnterWalletAddressOrConnectWallet() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col items-center justify-center bg-dark-blue-400 p-6 rounded-md gap-2 mx-4 my-6 sm:flex-1 sm:max-h-[440px] w-full max-w-[565px]"
+      className="flex flex-col items-center justify-center bg-dark-blue-400 p-6 rounded-md gap-2 sm:flex-1 sm:max-h-[440px] w-full max-w-[565px]"
     >
       <Logo width={409} height={640} />
       <Box className="flex sm:flex-row flex-col sm:items-stretch w-full gap-2">
@@ -58,7 +58,11 @@ export function EnterWalletAddressOrConnectWallet() {
         </Button>
       </Box>
 
-      {error && <Text className="font-medium text-red-400">{error}</Text>}
+      {error && (
+        <Text className="font-medium" style={{ color: "#aa4343" }}>
+          {error}
+        </Text>
+      )}
 
       <Text className="font-medium">Or</Text>
       <ConnectWallet />
